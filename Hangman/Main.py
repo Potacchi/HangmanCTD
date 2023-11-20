@@ -19,6 +19,8 @@ root.configure(bg = maincolour) # Sets background to off-white
 root.title("Hangman")
 
 # UX
+#hello
+
 
 # Levels/Category
 def Levels():

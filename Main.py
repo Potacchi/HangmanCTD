@@ -21,75 +21,9 @@ root.configure(bg = maincolour) # Sets background to off-white
 root.title("Hangman")
 
 # Dictionaries
-with open("Words.txt", encoding = 'utf-8') as f:
+wordfile = 'Wordbank.txt'
+with open(wordfile, 'r') as f:
     wordbank = json.load(f)
-'''print(wordbank)
-print(type(wordbank))'''
-
-words = {"cc": {
-"Easy": {
-"Pollution", 
-"Energy", 
-"Iceberg", 
-"Sea Levels", 
-"Typhoon"
-}, 
-"Medium": {
-"Deforestation", 
-"Renewable", 
-"Plants", 
-"Drought", 
-"Global Warming"
-}, 
-"Hard": {
-"Fossil fuels", 
-"Ecosystem", 
-"Ozone layer"
-}},
-
-"sus": {
-"Easy": {
-"Reduce", 
-"Recycle", 
-"Reuse", 
-"Switch off", 
-"Waste"
-}, 
-"Medium": {
-"Conserve", 
-"Local food", 
-"Composting", 
-"Utensils", 
-}, 
-"Hard": {
-"Ecotourism", 
-"Single-use plastic", 
-"Energy efficient",
-"Power socket",
-"Carbon footprint"
-}},
-
-"rec": {
-"Easy": {
-"Paper", 
-"Rusty", 
-"Donating", 
-"General", 
-"Electronic"
-}, 
-"Medium": { 
-"Styrofoam", 
-"Beddings", 
-"Batteries", 
-"Reusables",
-"Flammable" 
-}, 
-"Hard": {
-"Bloobin", 
-"Tissue paper", 
-"Food-stained"
-}},
-}
 
 # Destroys all widgets under specified frame
 # Referenced from https://stackoverflow.com/questions/70165908/how-to-switch-screens-using-tkinter

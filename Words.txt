@@ -1,1 +1,0 @@
-{"Easy": ["Pollution", "Energy", "Iceberg", "Sea Levels", "Typhoon"], "Medium": ["Deforestation", "Renewable", "Plants", "Drought", "Global Warming"], "Hard": ["Fossil fuels", "Ecosystem", "Ozone layer"]}

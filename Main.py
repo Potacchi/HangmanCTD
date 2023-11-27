@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import PhotoImage
 import json
+import random
 
 root = tk.Tk()
 
@@ -20,9 +21,75 @@ root.configure(bg = maincolour) # Sets background to off-white
 root.title("Hangman")
 
 # Dictionaries
-'''with open("Words.txt", encoding = 'utf-8') as f:
+with open("Words.txt", encoding = 'utf-8') as f:
     wordbank = json.load(f)
-print(wordbank)'''
+'''print(wordbank)
+print(type(wordbank))'''
+
+haha = {"cc": {
+"Easy": {
+"Pollution", 
+"Energy", 
+"Iceberg", 
+"Sea Levels", 
+"Typhoon"
+}, 
+"Medium": {
+"Deforestation", 
+"Renewable", 
+"Plants", 
+"Drought", 
+"Global Warming"
+}, 
+"Hard": {
+"Fossil fuels", 
+"Ecosystem", 
+"Ozone layer"
+}},
+
+"sus": {
+"Easy": {
+"Reduce", 
+"Recycle", 
+"Reuse", 
+"Switch off", 
+"Waste"
+}, 
+"Medium": {
+"Conserve", 
+"Local food", 
+"Composting", 
+"Utensils", 
+}, 
+"Hard": {
+"Ecotourism", 
+"Single-use plastic", 
+"Energy efficient",
+"Power socket",
+"Carbon footprint"
+}},
+
+"r": {
+"Easy": {
+"Paper", 
+"Rusty", 
+"Donating", 
+"General", 
+"Electronic"
+}, 
+"Medium": { 
+"Styrofoam", 
+"Beddings", 
+"Batteries", 
+"Reusables",
+"Flammable" 
+}, 
+"Hard": {
+"Bloobin", 
+"Tissue paper", 
+"Food-stained"
+}},
+}
 
 # Destroys all widgets under specified frame
 # Referenced from https://stackoverflow.com/questions/70165908/how-to-switch-screens-using-tkinter
@@ -30,17 +97,23 @@ def clear_frame():
     for widget in root.winfo_children():
         widget.destroy()
 
-# Level Select Screen
-def LevelSelect():
+# Levels
+def Levels():
+    clear_frame()
+    # To place code for levels here
+
+# Difficulty Select Screen
+def DifficultySelect():
     clear_frame()
 
     # Header
-    title = tk.Label(fg = accentcolour,
+    diff_title = tk.Label(root,
+                     fg = accentcolour,
                      bg = maincolour,
-                     text = "Level Select", 
+                     text = "Difficulty Selection", 
                      font = (fontheader))
     
-    # Level Select Buttons
+    # Difficulty Selection Buttons
     easy = tk.Button(
         root, 
         fg = 'Green', # Text Colour
@@ -50,7 +123,7 @@ def LevelSelect():
         border = 0,
         text = 'EASY', 
         font = (mainfont),
-        command = EasyLevel
+        command = Levels
         )
     
     medium = tk.Button(
@@ -62,7 +135,7 @@ def LevelSelect():
         border = 0,
         text = 'MEDIUM', 
         font = (mainfont),
-        # command = EasyLevel
+        command = Levels
         )
     
     hard = tk.Button(
@@ -74,21 +147,76 @@ def LevelSelect():
         border = 0,
         text = 'HARD', 
         font = (mainfont),
-        # command = EasyLevel
+        command = Levels
         )
     
     # UI Layout
-    title.place(x = 400, y = 200, anchor = 'center')
+    diff_title.place(x = 400, y = 200, anchor = 'center')
     easy.place(x = 400, y = 400, anchor = 'center')
     medium.place(x = 400, y = 500, anchor = 'center')
     hard.place(x = 400, y = 600, anchor = 'center')
     
+def LevelSelect():
+    clear_frame()
+
+    # Header
+    level_title = tk.Label(root,
+                     fg = accentcolour,
+                     bg = maincolour,
+                     text = "Level Select", 
+                     font = (fontheader))
+    
+    # Category Selection Buttons
+    climatechange = tk.Button(
+        root, 
+        fg = accentcolour, # Text Colour
+        bg = maincolour, # Button Colour
+        activeforeground = activecolour,
+        activebackground = maincolour,
+        border = 0,
+        text = 'CLIMATE CHANGE', 
+        font = (mainfont),
+        command = DifficultySelect
+        )
+    
+    sustainability = tk.Button(
+        root, 
+        fg = accentcolour, # Text Colour
+        bg = maincolour, # Button Colour
+        activeforeground = activecolour,
+        activebackground = maincolour,
+        border = 0,
+        text = 'SUSTAINABILITY', 
+        font = (mainfont),
+        command = DifficultySelect
+        )
+    
+    recycling = tk.Button(
+        root, 
+        fg = accentcolour, # Text Colour
+        bg = maincolour, # Button Colour
+        activeforeground = activecolour,
+        activebackground = maincolour,
+        border = 0,
+        text = 'RECYCLING', 
+        font = (mainfont),
+        command = DifficultySelect
+        )
+    
+    # UI Layout
+    level_title.place(x = 400, y = 200, anchor = 'center')
+    climatechange.place(x = 400, y = 400, anchor = 'center')
+    sustainability.place(x = 400, y = 500, anchor = 'center')
+    recycling.place(x = 400, y = 600, anchor = 'center')
+
+
 # Main Menu Screen
 def MainMenu():
     clear_frame()
 
     # Game Title
-    title = tk.Label(fg = accentcolour,
+    main_title = tk.Label(root,
+                     fg = accentcolour,
                      bg = maincolour,
                      text = "HANGMAN\n(Environment Edition!)", 
                      font = (fontheader))
@@ -103,7 +231,7 @@ def MainMenu():
         border = 0,
         text = 'PLAY', 
         font = (mainfont),
-        command = LevelSelect,
+        command = LevelSelect
         )
     
     quitgame = tk.Button(
@@ -119,31 +247,11 @@ def MainMenu():
         )
 
     # UI Layout
-    title.place(x = 400, y = 200, anchor = 'center')
+    main_title.place(x = 400, y = 200, anchor = 'center')
     play.place(x = 400, y = 550, anchor = 'center')
     quitgame.place(x = 400, y = 650, anchor = 'center')
-
-# Levels/Category
-def Levels():
-    clear_frame()
-    # To place code for levels here
-    text = 'placeholder'
-
-def EasyLevel():
-    clear_frame()
-
-    global my_image
-    my_image = PhotoImage(file="Images/test.png")
-    test = tk.Label(root, image = my_image)
-    test.place(x = 400, y = 400, anchor = 'center')
-
-medium = 'placeholder'
-hard = 'placeholder'
-
-def Hangman():
-    words = open('words.txt', 'r')
     
-
-MainMenu() # Upon running application, main menu screen is there
+if __name__ == "__main__":
+    MainMenu() # Upon running application, main menu screen is there
 
 root.mainloop()

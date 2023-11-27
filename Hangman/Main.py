@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import PhotoImage
+import json
 
 root = tk.Tk()
 
@@ -18,26 +19,10 @@ root.resizable(False, False) # Ensures that the game window is not resizable
 root.configure(bg = maincolour) # Sets background to off-white
 root.title("Hangman")
 
-# UX
-#hello
-
-
-# Levels/Category
-def Levels():
-    clear_frame()
-    # To place code for levels here
-    text = 'placeholder'
-
-def EasyLevel():
-    clear_frame
-    my_image = PhotoImage(file=r'./Images/test.png')
-    test = tk.Label(root, image = my_image)
-    test.place(x = 400, y = 400, anchor = 'center')
-    
-    text = 'placeholder'
-
-medium = 'placeholder'
-hard = 'placeholder'
+# Dictionaries
+'''with open("Words.txt", encoding = 'utf-8') as f:
+    wordbank = json.load(f)
+print(wordbank)'''
 
 # Destroys all widgets under specified frame
 # Referenced from https://stackoverflow.com/questions/70165908/how-to-switch-screens-using-tkinter
@@ -137,6 +122,27 @@ def MainMenu():
     title.place(x = 400, y = 200, anchor = 'center')
     play.place(x = 400, y = 550, anchor = 'center')
     quitgame.place(x = 400, y = 650, anchor = 'center')
+
+# Levels/Category
+def Levels():
+    clear_frame()
+    # To place code for levels here
+    text = 'placeholder'
+
+def EasyLevel():
+    clear_frame()
+
+    global my_image
+    my_image = PhotoImage(file="Images/test.png")
+    test = tk.Label(root, image = my_image)
+    test.place(x = 400, y = 400, anchor = 'center')
+
+medium = 'placeholder'
+hard = 'placeholder'
+
+def Hangman():
+    words = open('words.txt', 'r')
+    
 
 MainMenu() # Upon running application, main menu screen is there
 

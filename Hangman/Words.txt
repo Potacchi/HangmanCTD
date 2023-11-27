@@ -1,0 +1,1 @@
+[{"Easy": {"Pollution", "Energy", "Iceberg", "Sea Levels", "Typhoon"}}, {"Medium": {"Test", "Test1"}}, {"Hard": {"a", "b"}}]

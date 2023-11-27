@@ -167,8 +167,8 @@ def MainMenu():
         font = (mainfont),
         command = LevelSelect
         )
-    
-    quitgame = tk.Button(
+
+    '''quitgame = tk.Button(
         root, 
         fg = accentcolour, # Text Colour
         bg = maincolour, # Button Colour
@@ -178,6 +178,17 @@ def MainMenu():
         text = 'QUIT', 
         font = (mainfont),
         command = root.destroy # Force Quits Application
+        )'''
+
+    # Quit button with image placeholder
+    global quit_button
+    quit_button = PhotoImage(file='Images/QuitButton.png')
+    quitgame = tk.Button(
+        root, 
+        image = quit_button,
+        bg = maincolour,
+        border = 0,
+        command = root.destroy
         )
 
     # UI Layout

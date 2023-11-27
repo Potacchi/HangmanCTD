@@ -1,0 +1,23 @@
+{
+  "cc": {
+    "easy": [
+    "When harmful substances are released (eg. air _____, water ______)",
+    "energy", 
+    "iceberg", 
+    "sea levels", 
+    "typhoon"
+    ],
+    "medium": ["deforestation", "renewable", "plants", "drought", "global warming"],
+    "hard": ["fossil fuels", "ecosystem", "ozone layer"]
+  },
+  "sus": {
+    "easy": ["reduce", "recycle", "reuse", "switch off", "waste"],
+    "medium": ["conserve", "local food", "composting", "utensils"],
+    "hard": ["ecotourism", "single-use plastic", "energy efficient", "power socket", "carbon footprint"]
+  },
+  "rec": {
+    "easy": ["paper", "rusty", "donating", "general", "electronic"],
+    "medium": ["styrofoam", "beddings", "batteries", "reusables", "flammable"],
+    "hard": ["bloobin", "tissue paper", "food-stained"]
+  }
+}

@@ -25,6 +25,10 @@ wordfile = 'Wordbank.txt'
 with open(wordfile, 'r') as f:
     wordbank = json.load(f)
 
+hintfile = 'Hints.txt'
+with open(hintfile, 'r') as f:
+    hints = json.load(f)
+
 # Destroys all widgets under specified frame
 # Referenced from https://stackoverflow.com/questions/70165908/how-to-switch-screens-using-tkinter
 def clear_frame():

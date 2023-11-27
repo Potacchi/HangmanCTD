@@ -26,7 +26,7 @@ with open("Words.txt", encoding = 'utf-8') as f:
 '''print(wordbank)
 print(type(wordbank))'''
 
-haha = {"cc": {
+words = {"cc": {
 "Easy": {
 "Pollution", 
 "Energy", 
@@ -69,7 +69,7 @@ haha = {"cc": {
 "Carbon footprint"
 }},
 
-"r": {
+"rec": {
 "Easy": {
 "Paper", 
 "Rusty", 
@@ -98,12 +98,12 @@ def clear_frame():
         widget.destroy()
 
 # Levels
-def Levels():
+def Levels(category, difficulty):
     clear_frame()
     # To place code for levels here
 
 # Difficulty Select Screen
-def DifficultySelect():
+def DifficultySelect(category):
     clear_frame()
 
     # Header
@@ -123,7 +123,7 @@ def DifficultySelect():
         border = 0,
         text = 'EASY', 
         font = (mainfont),
-        command = Levels
+        command = lambda: Levels(category, "easy")
         )
     
     medium = tk.Button(
@@ -135,7 +135,7 @@ def DifficultySelect():
         border = 0,
         text = 'MEDIUM', 
         font = (mainfont),
-        command = Levels
+        command = lambda: Levels(category, "medium")
         )
     
     hard = tk.Button(
@@ -147,7 +147,7 @@ def DifficultySelect():
         border = 0,
         text = 'HARD', 
         font = (mainfont),
-        command = Levels
+        command = lambda: Levels(category, "hard")
         )
     
     # UI Layout
@@ -176,7 +176,7 @@ def LevelSelect():
         border = 0,
         text = 'CLIMATE CHANGE', 
         font = (mainfont),
-        command = DifficultySelect
+        command = lambda: DifficultySelect("cc")
         )
     
     sustainability = tk.Button(
@@ -188,7 +188,7 @@ def LevelSelect():
         border = 0,
         text = 'SUSTAINABILITY', 
         font = (mainfont),
-        command = DifficultySelect
+        command = lambda: DifficultySelect("sus")
         )
     
     recycling = tk.Button(
@@ -200,7 +200,7 @@ def LevelSelect():
         border = 0,
         text = 'RECYCLING', 
         font = (mainfont),
-        command = DifficultySelect
+        command = lambda: DifficultySelect("rec")
         )
     
     # UI Layout

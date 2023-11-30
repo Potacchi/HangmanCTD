@@ -1,0 +1,23 @@
+{
+"easy": [ 
+["paper", "What can you throw in the blue recycling bins? (hint: trees !)"],
+["rusty", "Although made of the same material, _____ metal cans should not be placed in the blue recycling bins."],
+["donating", "You should consider ________ your clothes and textiles if in good condition."],
+["electronic", "E-waste stands for: __________ waste"],
+["clean", "We should always empty the contents of our recyclables and ensure that they are _______ before recycling them in the available recycling bins."]
+],
+"medium": [
+["general", "What are non-recyclable items known as? (hint: _______ waste)"],
+["styrofoam", "Some ________ energy sources are wind turbines and solar panels."],
+["beddings", "What bulky items should you not throw into the blue recycling bin?"],
+["batteries", "You can throw this source of electric power into the e-waste bins."],
+["reusables", "What items should you not throw into the blue recycling bin? (hint: clothes, bags, stuffed toys)"]
+],
+"hard": [
+["flammable", "DO NOT dispose of _________ materials into the blue recycling bins to prevent fire from catching."],
+["bloobin", "What is the name of Singapore’s recycling mascot?"],
+["liquids", "No food and _______ should be thrown into the recycling bins."],
+["tissue paper", "Used ______ _____ should not be thrown into the recycling bins."],
+["food-stained", "You should not throw ____-_______ items into the recycling bin."]
+]
+}

@@ -1,33 +1,43 @@
 import tkinter as tk
 from tkinter import PhotoImage
+from tkinter import messagebox
 import json
 import random
 
 root = tk.Tk()
 
 # UI-Variables
-maincolour = '#FFFFE4'
-accentcolour = 'Brown'
-highlightcolour = 'Grey'
-activecolour = '#664F40'
+colourmain = '#FFFFE4'
+colouraccent = 'Brown'
+colourhighlight = 'Grey'
+colouractive = '#664F40'
 
 fontheader = 'Comic Sans MS', 45
-mainfont = 'Comic Sans MS', 30
+fontmain = 'Comic Sans MS', 30
+fonthint = 'Comic Sans MS', 15
+fontsmall = 'Comic Sans MS', 10
+
+# Create transparent attribute for widgets
+root.wm_attributes('-transparentcolor', '#ab23ff')
 
 # root of game
 root.geometry("800x800") # Sets the dimensions of the window size to be 800*800px
-root.resizable(False, False) # Ensures that the game window is not resizable
-root.configure(bg = maincolour) # Sets background to off-white
+# root.resizable(False, False) # Ensures that the game window is not resizable
+root.configure(bg = colourmain) # Sets background to off-white
 root.title("Hangman")
 
 # Dictionaries
-wordfile = 'Wordbank.txt'
-with open(wordfile, 'r') as f:
-    wordbank = json.load(f)
+ccfile = 'CC.txt'
+with open(ccfile, 'r') as f:
+    cc = json.load(f)
 
-hintfile = 'Hints.txt'
-with open(hintfile, 'r') as f:
-    hints = json.load(f)
+sustainabilityfile = 'SUSTAINABILITY.txt'
+with open(sustainabilityfile, 'r') as f:
+    sus = json.load(f)
+
+recyclingfile = 'RECYCLING.txt'
+with open(recyclingfile, 'r') as f:
+    rec = json.load(f)
 
 # Destroys all widgets under specified frame
 # Referenced from https://stackoverflow.com/questions/70165908/how-to-switch-screens-using-tkinter
@@ -35,57 +45,138 @@ def clear_frame():
     for widget in root.winfo_children():
         widget.destroy()
 
+def hangmanGameLoop(wordToGuess, guessedWord, attempts, inputField):
+
+    print("hangmanGameLoop is active")
+
+    letterList = []
+    guess = inputField.get()
+
+    if "_" in guessedWord and attempts > 0:
+        if inputField not in letterList:
+            letterList.append(guess)
+
+            if guess in wordToGuess:
+                for i in range(len(wordToGuess)):
+                    if guessedWord[i] == guess:
+                        guessedWord[i] = guess
+            else:
+                attempts -= 1
+
 # Levels
-def Levels(category, difficulty):
+def Hangman(category, difficulty):
     clear_frame()
-    # To place code for levels here
+    
+    # Creates a new category list and appends chosen category & difficulty from dictionary to list
+    categorylist = [] 
+    for item in category[difficulty]:
+        categorylist.append(item)
+    
+    # From category list, choose a random word & hint
+    chosenList = random.choice(categorylist)
+    categorylist.remove(chosenList)
+    wordToGuess, hintText = chosenList
+    guessedWord = ["_"] * len(wordToGuess)
+    attempts = 6
+    guess = ''
+
+    inputField = tk.Entry(root,
+                              border = 0,
+                              fg = colouraccent,
+                              bg = colourmain,
+                              font = fontmain,
+                              width = 1,
+                              )
+    inputField.focus()
+
+    if len(inputField.get()) > 1:
+        inputField.delete(1)
+    
+    # Hint Sentence
+    hint = tk.Label(
+                    root,
+                    fg = colouraccent,
+                    bg = colourmain,
+                    text = hintText, 
+                    font = fonthint
+                    )
+    
+    # Guessed Word
+    wordGuess = tk.Label(
+                    root,
+                    fg = colouraccent,
+                    bg = colourmain,
+                    text = guessedWord, 
+                    font = fontmain
+                    )
+    
+    enterInput = tk.Button(
+        root, 
+        fg = colouraccent, # Text Colour
+        bg = colourmain, # Button Colour
+        activeforeground = colouractive,
+        activebackground = colourmain,
+        border = 1,
+        text = 'enter', 
+        font = fontsmall,
+        command = lambda: hangmanGameLoop(wordToGuess, guessedWord, attempts, inputField)
+        )
+
+    # UI Layout
+    # hint.place(x = 400, y = 200, anchor = 'center')
+    hint.pack(padx = 10, pady = 100)
+    inputField.place(x = 400, y = 600, anchor = 'center')
+    wordGuess.place(x = 400, y = 350, anchor = 'center')
+    enterInput.place(x = 400, y = 650, anchor = 'center')
+    
 
 # Difficulty Select Screen
 def DifficultySelect(category):
     clear_frame()
 
     # Header
-    diff_title = tk.Label(root,
-                     fg = accentcolour,
-                     bg = maincolour,
+    diff_title = tk.Label(
+                    root,
+                     fg = colouraccent,
+                     bg = colourmain,
                      text = "Difficulty Selection", 
-                     font = (fontheader))
+                     font = fontheader)
     
     # Difficulty Selection Buttons
     easy = tk.Button(
         root, 
         fg = 'Green', # Text Colour
-        bg = maincolour, # Button Colour
-        activeforeground = activecolour,
-        activebackground = maincolour,
+        bg = colourmain, # Button Colour
+        activeforeground = colouractive,
+        activebackground = colourmain,
         border = 0,
         text = 'EASY', 
-        font = (mainfont),
-        command = lambda: Levels(category, "easy")
+        font = fontmain,
+        command = lambda: Hangman(category, "easy")
         )
     
     medium = tk.Button(
         root, 
         fg = 'Orange', # Text Colour
-        bg = maincolour, # Button Colour
-        activeforeground = activecolour,
-        activebackground = maincolour,
+        bg = colourmain, # Button Colour
+        activeforeground = colouractive,
+        activebackground = colourmain,
         border = 0,
         text = 'MEDIUM', 
-        font = (mainfont),
-        command = lambda: Levels(category, "medium")
+        font = fontmain,
+        command = lambda: Hangman(category, "medium")
         )
     
     hard = tk.Button(
         root, 
         fg = 'Red', # Text Colour
-        bg = maincolour, # Button Colour
-        activeforeground = activecolour,
-        activebackground = maincolour,
+        bg = colourmain, # Button Colour
+        activeforeground = colouractive,
+        activebackground = colourmain,
         border = 0,
         text = 'HARD', 
-        font = (mainfont),
-        command = lambda: Levels(category, "hard")
+        font = fontmain,
+        command = lambda: Hangman(category, "hard")
         )
     
     # UI Layout
@@ -98,47 +189,49 @@ def LevelSelect():
     clear_frame()
 
     # Header
-    level_title = tk.Label(root,
-                     fg = accentcolour,
-                     bg = maincolour,
+    level_title = tk.Label(
+                    root,
+                     fg = colouraccent,
+                     bg = colourmain,
                      text = "Level Select", 
-                     font = (fontheader))
+                     font = fontheader
+                     )
     
     # Category Selection Buttons
     climatechange = tk.Button(
         root, 
-        fg = accentcolour, # Text Colour
-        bg = maincolour, # Button Colour
-        activeforeground = activecolour,
-        activebackground = maincolour,
+        fg = colouraccent, # Text Colour
+        bg = colourmain, # Button Colour
+        activeforeground = colouractive,
+        activebackground = colourmain,
         border = 0,
         text = 'CLIMATE CHANGE', 
-        font = (mainfont),
-        command = lambda: DifficultySelect("cc")
+        font = fontmain,
+        command = lambda: DifficultySelect(cc)
         )
     
     sustainability = tk.Button(
         root, 
-        fg = accentcolour, # Text Colour
-        bg = maincolour, # Button Colour
-        activeforeground = activecolour,
-        activebackground = maincolour,
+        fg = colouraccent, # Text Colour
+        bg = colourmain, # Button Colour
+        activeforeground = colouractive,
+        activebackground = colourmain,
         border = 0,
         text = 'SUSTAINABILITY', 
-        font = (mainfont),
-        command = lambda: DifficultySelect("sus")
+        font = fontmain,
+        command = lambda: DifficultySelect(sus)
         )
     
     recycling = tk.Button(
         root, 
-        fg = accentcolour, # Text Colour
-        bg = maincolour, # Button Colour
-        activeforeground = activecolour,
-        activebackground = maincolour,
+        fg = colouraccent, # Text Colour
+        bg = colourmain, # Button Colour
+        activeforeground = colouractive,
+        activebackground = colourmain,
         border = 0,
         text = 'RECYCLING', 
-        font = (mainfont),
-        command = lambda: DifficultySelect("rec")
+        font = fontmain,
+        command = lambda: DifficultySelect(rec)
         )
     
     # UI Layout
@@ -153,47 +246,50 @@ def MainMenu():
     clear_frame()
 
     # Game Title
-    main_title = tk.Label(root,
-                     fg = accentcolour,
-                     bg = maincolour,
+    main_title = tk.Label(
+                    root,
+                     fg = colouraccent,
+                     bg = colourmain,
                      text = "HANGMAN\n(Environment Edition!)", 
-                     font = (fontheader))
+                     font = fontheader
+                    )
 
     # Main Menu Buttons
     play = tk.Button(
         root, 
-        fg = accentcolour, # Text Colour
-        bg = maincolour, # Button Colour
-        activeforeground = activecolour,
-        activebackground = maincolour,
+        fg = colouraccent, # Text Colour
+        bg = colourmain, # Button Colour
+        activeforeground = colouractive,
+        activebackground = colourmain,
         border = 0,
         text = 'PLAY', 
-        font = (mainfont),
+        font = fontmain,
         command = LevelSelect
         )
 
-    '''quitgame = tk.Button(
+    # Quit Game Button
+    quitgame = tk.Button(
         root, 
-        fg = accentcolour, # Text Colour
-        bg = maincolour, # Button Colour
-        activeforeground = activecolour,
-        activebackground = maincolour,
+        fg = colouraccent, # Text Colour
+        bg = colourmain, # Button Colour
+        activeforeground = colouractive,
+        activebackground = colourmain,
         border = 0,
         text = 'QUIT', 
-        font = (mainfont),
+        font = fontmain,
         command = root.destroy # Force Quits Application
-        )'''
+        )
 
-    # Quit button with image placeholder
+    '''# Quit button with image placeholder
     global quit_button
     quit_button = PhotoImage(file='Images/QuitButton.png')
     quitgame = tk.Button(
         root, 
         image = quit_button,
-        bg = maincolour,
+        bg = colourmain,
         border = 0,
         command = root.destroy
-        )
+        )'''
 
     # UI Layout
     main_title.place(x = 400, y = 200, anchor = 'center')

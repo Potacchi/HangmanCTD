@@ -1,0 +1,23 @@
+{
+"easy": [ 
+["pollution", "When harmful substances are released (eg. air _____, water ______)"],
+["energy", "Turning on the aircon all day takes up a lot of _____ (hint: other than electricity)"],
+["iceberg", "What is big and melts in the arctic due to high temperature?"],
+["sea levels", "Melting of glaciers cause ___ _____ to rise"],
+["typhoon", "An extreme storm with strong winds; a natural disaster"]
+],
+"medium": [
+["deforestation", "Cutting down of trees in a forested land"],
+["renewable", "Some ________ energy sources are wind turbines and solar panels."],
+["plants", "What living thing produces oxygen for the environment through photosynthesis?"],
+["drought", "Period of no rain caused by climate change"],
+["global warming", "Heating up of the Earth due to climate change"]
+],
+"hard": [
+["fossil fuels", "Burning ______ _____ is a non-renewable source of energy"],
+["ecosystem", "Habitat where different plants and animals live together"],
+["ozone layer", "What covers the Earth and absorbs UV radiation from the sun?"],
+["wildfire", "Uncontrolled natural fire started by high temperatures"],
+["greenhouse gas", "Scientific term for harmful gas that traps heat"]
+]
+}

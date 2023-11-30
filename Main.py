@@ -45,23 +45,38 @@ def clear_frame():
     for widget in root.winfo_children():
         widget.destroy()
 
-def hangmanGameLoop(wordToGuess, guessedWord, attempts, inputField):
+attempts = 6
 
+def hangmanGameLoop(wordToGuess, guessedWord, inputField, wordGuess, attempts):
     print("hangmanGameLoop is active")
 
     letterList = []
     guess = inputField.get()
+    if "_" in guessedWord:
+        
+        # if inputField not in letterList:
+        #     print(attempts)
+        #     letterList.append(guess)
+        #     print(guess)
+        #     print(wordToGuess)
+        if guess in wordToGuess:
+            for i in range(len(wordToGuess)):
+                if guess == wordToGuess[i]:
+                    print(wordToGuess[i])
+                    guessedWord[i] = guess
+                    print(guessedWord)
+                    print(attempts)
+                else:
+                    print(wordToGuess[i])
+                    print("nopers")
+        elif guess not in wordToGuess:
+            attempts -= 1
+            print(attempts)
+            return attempts
+    # elif attempts == 0:
+    #     return None
 
-    if "_" in guessedWord and attempts > 0:
-        if inputField not in letterList:
-            letterList.append(guess)
-
-            if guess in wordToGuess:
-                for i in range(len(wordToGuess)):
-                    if guessedWord[i] == guess:
-                        guessedWord[i] = guess
-            else:
-                attempts -= 1
+    wordGuess.config(text = guessedWord)
 
 # Levels
 def Hangman(category, difficulty):
@@ -77,7 +92,6 @@ def Hangman(category, difficulty):
     categorylist.remove(chosenList)
     wordToGuess, hintText = chosenList
     guessedWord = ["_"] * len(wordToGuess)
-    attempts = 6
     guess = ''
 
     inputField = tk.Entry(root,
@@ -100,7 +114,7 @@ def Hangman(category, difficulty):
                     text = hintText, 
                     font = fonthint
                     )
-    
+
     # Guessed Word
     wordGuess = tk.Label(
                     root,
@@ -119,12 +133,12 @@ def Hangman(category, difficulty):
         border = 1,
         text = 'enter', 
         font = fontsmall,
-        command = lambda: hangmanGameLoop(wordToGuess, guessedWord, attempts, inputField)
+        command = lambda: hangmanGameLoop(wordToGuess, guessedWord, inputField, wordGuess, attempts)
         )
 
     # UI Layout
-    # hint.place(x = 400, y = 200, anchor = 'center')
-    hint.pack(padx = 10, pady = 100)
+    hint.place(x = 400, y = 200, anchor = 'center')
+    # hint.pack(expand = True, fill = 'both', side = tk.TOP)
     inputField.place(x = 400, y = 600, anchor = 'center')
     wordGuess.place(x = 400, y = 350, anchor = 'center')
     enterInput.place(x = 400, y = 650, anchor = 'center')

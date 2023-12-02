@@ -39,43 +39,57 @@ recyclingfile = 'RECYCLING.txt'
 with open(recyclingfile, 'r') as f:
     rec = json.load(f)
 
+attempts = 6
+
 # Destroys all widgets under specified frame
 # Referenced from https://stackoverflow.com/questions/70165908/how-to-switch-screens-using-tkinter
 def clear_frame():
     for widget in root.winfo_children():
         widget.destroy()
 
-attempts = 6
+def loseGame():
+    clear_frame()
 
-def hangmanGameLoop(wordToGuess, guessedWord, inputField, wordGuess, attempts):
+    loseText = tk.Label(
+                root,
+                fg = colouraccent,
+                bg = colourmain,
+                text = "YOU LOSE!\n RETRY?", 
+                font = fontheader)
+    
+    loseText.place(x = 400, y = 400, anchor = 'center')
+
+def hangmanGameLoop(wordToGuess, guessedWord, inputField, wordGuess):
     print("hangmanGameLoop is active")
-
+    
+    global attempts
     letterList = []
-    guess = inputField.get()
-    if "_" in guessedWord:
-        
-        # if inputField not in letterList:
-        #     print(attempts)
-        #     letterList.append(guess)
-        #     print(guess)
-        #     print(wordToGuess)
-        if guess in wordToGuess:
-            for i in range(len(wordToGuess)):
-                if guess == wordToGuess[i]:
-                    print(wordToGuess[i])
-                    guessedWord[i] = guess
-                    print(guessedWord)
-                    print(attempts)
-                else:
-                    print(wordToGuess[i])
-                    print("nopers")
-        elif guess not in wordToGuess:
-            attempts -= 1
-            print(attempts)
-            return attempts
-    # elif attempts == 0:
-    #     return None
 
+    guess = inputField.get()    
+    if "_" in guessedWord and attempts > 0:  
+        if inputField not in letterList:
+            print(attempts)
+            letterList.append(guess)
+            print(guess)
+            print(wordToGuess)
+            if guess in wordToGuess:
+                for i in range(len(wordToGuess)):
+                    if guess == wordToGuess[i]:
+                        print(wordToGuess[i])
+                        guessedWord[i] = guess
+                        print(guessedWord)
+                        print(attempts)
+                    else:
+                        print(wordToGuess[i])
+                        print("nopers")
+            elif guess not in wordToGuess:
+                attempts -= 1
+                print(attempts)
+    elif attempts <= 0:
+        loseGame()
+
+
+    # Updates the wordGuess widget if you get an answer correct
     wordGuess.config(text = guessedWord)
 
 # Levels
@@ -133,7 +147,7 @@ def Hangman(category, difficulty):
         border = 1,
         text = 'enter', 
         font = fontsmall,
-        command = lambda: hangmanGameLoop(wordToGuess, guessedWord, inputField, wordGuess, attempts)
+        command = lambda: hangmanGameLoop(wordToGuess, guessedWord, inputField, wordGuess)
         )
 
     # UI Layout

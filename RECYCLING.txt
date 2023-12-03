@@ -4,7 +4,7 @@
 ["rusty", "Although made of the same material, _____ metal cans should not be placed in the blue recycling bins."],
 ["donating", "You should consider ________ your clothes and textiles if in good condition."],
 ["electronic", "E-waste stands for: __________ waste"],
-["clean", "We should always empty the contents of our recyclables and ensure that they are _______ before recycling them in the available recycling bins."]
+["clean", "We should always empty the contents of our recyclables and ensure that they are _______ before \n recycling them in the available recycling bins."]
 ],
 "medium": [
 ["general", "What are non-recyclable items known as? (hint: _______ waste)"],

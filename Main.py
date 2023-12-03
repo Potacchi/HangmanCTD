@@ -6,9 +6,10 @@ import random
 
 root = tk.Tk()
 
-#global variable to keep track of the buttons pressed
+# Global Variables
 pressed_buttons = []
-
+categorylist = []
+attempts = 6
 
 # UI-Variables
 colourmain = '#FFFFE4'
@@ -43,8 +44,6 @@ recyclingfile = 'RECYCLING.txt'
 with open(recyclingfile, 'r') as f:
     rec = json.load(f)
 
-attempts = 6
-
 # Destroys all widgets under specified frame
 # Referenced from https://stackoverflow.com/questions/70165908/how-to-switch-screens-using-tkinter
 def clear_frame():
@@ -53,6 +52,7 @@ def clear_frame():
 
 def loseGame():
     clear_frame()
+    categorylist = []
 
     loseText = tk.Label(
                 root,
@@ -62,9 +62,12 @@ def loseGame():
                 font = fontheader)
     
     loseText.place(x = 400, y = 400, anchor = 'center')
-
-def nextGame():
+    
+def nextGame(category, difficulty):
     clear_frame()
+    global pressed_buttons
+    pressed_buttons = [] # Resets pressed buttons
+    print(len(categorylist))
 
     nextText = tk.Label(
                 root,
@@ -85,7 +88,7 @@ def nextGame():
         border=1,
         text='Next',
         font=fontmain,
-        command =  lambda: restartHangman()
+        command =  lambda: Hangman(category, difficulty)
     )
 
     next_button.place(x = 400, y = 600, anchor = 'center')
@@ -94,46 +97,42 @@ def nextGame():
 #     #same as next game but change the command to mainmenu()
 
 
-def restartHangman():
+'''def restartHangman():
     global pressed_buttons
     clear_frame()
 
     difficulty = pressed_buttons[1]
     category = pressed_buttons[2]
     Hangman(category, difficulty)
-    pressed_buttons = []  # Reset pressed_buttons
+    pressed_buttons = []  # Reset pressed_buttons'''
 
-def hangmanGameLoop(wordToGuess, guessedWord, inputField, wordGuess, attempts_label):
+def hangmanGameLoop(wordToGuess, guessedWord, inputField, wordGuess, attempts_label, category, difficulty):
     global attempts, pressed_buttons
     print("hangmanGameLoop is active")
     
     #the letter that is guessed
     letterList = []
     wordToGuess_list = list(wordToGuess)
-    
 
     guess = inputField.get()    
     if guessedWord == wordToGuess_list: 
-        nextGame()
+        nextGame(category, difficulty)
     elif "_" in guessedWord and attempts > 0:  
         if inputField not in letterList:
-            print(attempts)
             letterList.append(guess)
-            print(guess)
             print(wordToGuess)
             if guess in wordToGuess:
                 for i in range(len(wordToGuess)):
                     if guess == wordToGuess[i]:
-                        print(wordToGuess[i])
+                        # print(wordToGuess[i])
                         guessedWord[i] = guess
-                        print(guessedWord)
-                        print(attempts)
+                        # print(guessedWord)
                     else:
                         print(wordToGuess[i])
-                        print("nopers")
+                        # print("nopers")
             elif guess not in wordToGuess:
                 attempts -= 1
-                print(attempts)
+                # print(attempts)
     elif attempts <= 0:
         loseGame()
 
@@ -147,22 +146,25 @@ def hangmanGameLoop(wordToGuess, guessedWord, inputField, wordGuess, attempts_la
 
 # Levels
 def Hangman(category, difficulty):
-    global attempts, pressed_buttons
+    global attempts, pressed_buttons, categorylist
     clear_frame()
     
+    if len(categorylist) < 9:
     # Creates a new category list and appends chosen category & difficulty from dictionary to list
-    categorylist = [] 
-    for item in category[difficulty]:
-        categorylist.append(item)
-    # word_list = category[difficulty]
-    
+        for item in category[difficulty]:
+            categorylist.append(item)
+        # word_list = category[difficulty]
+        
     # From category list, choose a random word & hint
+    chosenList = []
     chosenList = random.choice(categorylist)
     # chosenList = random.choice(word_list)
     categorylist.remove(chosenList)
+    print(categorylist)
     wordToGuess, hintText = chosenList
     guessedWord = ["_"] * len(wordToGuess)
     guess = ''
+    # print(categorylist)
 
     inputField = tk.Entry(root,
                               border = 0,
@@ -214,11 +216,11 @@ def Hangman(category, difficulty):
         text = 'enter', 
         font = fontsmall,
         #return into the terminal 
-        command = lambda: hangmanGameLoop(wordToGuess, guessedWord, inputField, wordGuess, attempts_label)
+        command = lambda: hangmanGameLoop(wordToGuess, guessedWord, inputField, wordGuess, attempts_label, category, difficulty)
     )
 
     #binding the return/enter button
-    inputField.bind('<Return>', lambda event: hangmanGameLoop(wordToGuess, guessedWord, inputField, wordGuess, attempts_label))
+    inputField.bind('<Return>', lambda event: hangmanGameLoop(wordToGuess, guessedWord, inputField, wordGuess, attempts_label, category, difficulty))
         
 
 

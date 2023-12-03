@@ -1,6 +1,4 @@
 import tkinter as tk
-from tkinter import PhotoImage
-from tkinter import messagebox
 import json
 import random
 
@@ -99,6 +97,7 @@ def winGame():
     clear_frame()
     global pressed_buttons
     pressed_buttons = [] # Resets pressed buttons
+    removedWords = []
 
     winText = tk.Label(
                 root,
@@ -178,15 +177,21 @@ def hangmanGameLoop(wordToGuess, guessedWord, inputField, wordGuess, attempts_la
 def Hangman(category, difficulty):
     global attempts, pressed_buttons, categorylist, removedWords
     clear_frame()
+    print(difficulty)
+    print(removedWords)
+    print(category)
     
     # Creates a new category list and appends chosen category & difficulty from dictionary to list
-    if removedWords == []:
+    '''if removedWords == []:
         for item in category[difficulty]:
-                categorylist.append(item)
+                categorylist.append(item)'''
     # word_list = category[difficulty]
+
+    if not categorylist:
+        categorylist.extend(category[difficulty])
         
     # From category list, choose a random word & hint
-    chosenList = []
+    '''chosenList = []
     chosenList = random.choice(categorylist)
     # chosenList = random.choice(word_list)
     categorylist.remove(chosenList)
@@ -195,6 +200,16 @@ def Hangman(category, difficulty):
     guessedWord = ["_"] * len(wordToGuess)
     guess = ''
     removedWords.append(wordToGuess)
+    '''
+
+    if categorylist:
+        chosenList = random.choice(categorylist)
+        categorylist.remove(chosenList)
+        print(categorylist)
+        wordToGuess, hintText = chosenList
+        guessedWord = ["_"] * len(wordToGuess)
+        guess = ''
+        removedWords.append(wordToGuess)
 
     inputField = tk.Entry(root,
                               border = 0,
@@ -266,6 +281,7 @@ def Hangman(category, difficulty):
 
 # Difficulty Select Screen
 def DifficultySelect(category):
+    print(category)
     global pressed_buttons
     clear_frame()
 
@@ -401,6 +417,7 @@ def MainMenu():
     global pressed_buttons
     clear_frame()
 
+    print(categorylist)
     # Game Title
     main_title = tk.Label(
                     root,

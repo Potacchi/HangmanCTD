@@ -10,24 +10,26 @@ root = tk.Tk()
 pressed_buttons = []
 categorylist = []
 attempts = 6
+removedWords = []
 
 # UI-Variables
-colourmain = '#FFFFE4'
-colouraccent = 'Brown'
+colourmain = '#FBF7D7'
+colouraccent = 'brown4'
+# colourtext = '#4F372E'
 colourhighlight = 'Grey'
 colouractive = '#664F40'
 
-fontheader = 'Comic Sans MS', 45
-fontmain = 'Comic Sans MS', 30
-fonthint = 'Comic Sans MS', 15
-fontsmall = 'Comic Sans MS', 10
+fontheader = 'Baskerville Old Face', 45
+fontmain = 'Baskerville Old Face', 30
+fonthint = 'Baskerville Old Face', 15
+fontsmall = 'Baskerville Old Face', 10
 
 # Create transparent attribute for widgets
 #root.wm_attributes('-transparent', '#ab23ff')
 
 # root of game
 root.geometry("800x800") # Sets the dimensions of the window size to be 800*800px
-# root.resizable(False, False) # Ensures that the game window is not resizable
+root.resizable(False, False) # Ensures that the game window is not resizable
 root.configure(bg = colourmain) # Sets background to off-white
 root.title("Hangman")
 
@@ -74,7 +76,7 @@ def nextGame(category, difficulty):
                 fg = colouraccent,
                 bg = colourmain,
                 text = "YOU WIN!\n READY FOR MORE?", 
-                font = fontheader)
+                font = fontmain)
     
     #increase the size of the button
     nextText.place(x = 400, y = 400, anchor = 'center')
@@ -93,8 +95,34 @@ def nextGame(category, difficulty):
 
     next_button.place(x = 400, y = 600, anchor = 'center')
 
-# def winGame(): 
-#     #same as next game but change the command to mainmenu()
+def winGame(): 
+    clear_frame()
+    global pressed_buttons
+    pressed_buttons = [] # Resets pressed buttons
+
+    winText = tk.Label(
+                root,
+                fg = colouraccent,
+                bg = colourmain,
+                text = "YOU WIN!\n DO YOU WANT TO PLAY AGAIN?", 
+                font = fontmain)
+    
+    #increase the size of the button
+    winText.pack(expand = True, fill = 'both', side = tk.TOP)
+
+    back_button = tk.Button(
+        root,
+        fg=colouraccent,  # Text Colour
+        bg=colourmain,  # Button Colour
+        activeforeground=colouractive,
+        activebackground=colourmain,
+        border=1,
+        text='Go Back',
+        font=fontmain,
+        command =  lambda: MainMenu()
+    )
+
+    back_button.place(x = 400, y = 600, anchor = 'center')
 
 
 '''def restartHangman():
@@ -114,9 +142,11 @@ def hangmanGameLoop(wordToGuess, guessedWord, inputField, wordGuess, attempts_la
     letterList = []
     wordToGuess_list = list(wordToGuess)
 
-    guess = inputField.get()    
+    guess = inputField.get()
     if guessedWord == wordToGuess_list: 
         nextGame(category, difficulty)
+        if categorylist == []:
+            winGame()
     elif "_" in guessedWord and attempts > 0:  
         if inputField not in letterList:
             letterList.append(guess)
@@ -146,14 +176,14 @@ def hangmanGameLoop(wordToGuess, guessedWord, inputField, wordGuess, attempts_la
 
 # Levels
 def Hangman(category, difficulty):
-    global attempts, pressed_buttons, categorylist
+    global attempts, pressed_buttons, categorylist, removedWords
     clear_frame()
     
-    if len(categorylist) < 9:
     # Creates a new category list and appends chosen category & difficulty from dictionary to list
+    if removedWords == []:
         for item in category[difficulty]:
-            categorylist.append(item)
-        # word_list = category[difficulty]
+                categorylist.append(item)
+    # word_list = category[difficulty]
         
     # From category list, choose a random word & hint
     chosenList = []
@@ -164,7 +194,7 @@ def Hangman(category, difficulty):
     wordToGuess, hintText = chosenList
     guessedWord = ["_"] * len(wordToGuess)
     guess = ''
-    # print(categorylist)
+    removedWords.append(wordToGuess)
 
     inputField = tk.Entry(root,
                               border = 0,
@@ -230,7 +260,7 @@ def Hangman(category, difficulty):
     # hint.pack(expand = True, fill = 'both', side = tk.TOP)
     inputField.place(x = 400, y = 600, anchor = 'center')
     wordGuess.place(x = 400, y = 350, anchor = 'center')
-    attempts_label.place(x=400, y=450, anchor='center')
+    attempts_label.place(x = 400, y = 450, anchor = 'center')
     enterInput.place(x = 400, y = 650, anchor = 'center')
     
 
@@ -250,7 +280,7 @@ def DifficultySelect(category):
     # Difficulty Selection Buttons
     easy = tk.Button(
         root, 
-        fg = 'Green', # Text Colour
+        fg = '#37461E', # Text Colour
         bg = colourmain, # Button Colour
         activeforeground = colouractive,
         activebackground = colourmain,
@@ -263,7 +293,7 @@ def DifficultySelect(category):
     
     medium = tk.Button(
         root, 
-        fg = 'Orange', # Text Colour
+        fg = '#CD9B37', # Text Colour
         bg = colourmain, # Button Colour
         activeforeground = colouractive,
         activebackground = colourmain,
@@ -276,7 +306,7 @@ def DifficultySelect(category):
     
     hard = tk.Button(
         root, 
-        fg = 'Red', # Text Colour
+        fg = '#BC622B', # Text Colour
         bg = colourmain, # Button Colour
         activeforeground = colouractive,
         activebackground = colourmain,
@@ -324,7 +354,7 @@ def LevelSelect():
     # Category Selection Buttons
     climatechange = tk.Button(
         root, 
-        fg = colouraccent, # Text Colour
+        fg = '#8E4D63', # Text Colour
         bg = colourmain, # Button Colour
         activeforeground = colouractive,
         activebackground = colourmain,
@@ -336,7 +366,7 @@ def LevelSelect():
     
     sustainability = tk.Button(
         root, 
-        fg = colouraccent, # Text Colour
+        fg = '#A74A43', # Text Colour
         bg = colourmain, # Button Colour
         activeforeground = colouractive,
         activebackground = colourmain,
@@ -348,7 +378,7 @@ def LevelSelect():
     
     recycling = tk.Button(
         root, 
-        fg = colouraccent, # Text Colour
+        fg = '#516067', # Text Colour
         bg = colourmain, # Button Colour
         activeforeground = colouractive,
         activebackground = colourmain,

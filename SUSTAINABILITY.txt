@@ -4,7 +4,7 @@
 ["recycle", "(one of the 3Rs) Disposing unwanted objects in an environmentally-friendly way"],
 ["reuse", "(one of the 3Rs) Finding a new purpose for unwanted objects instead of throwing them away"],
 ["switch off", "______ lights and fans when not in use"],
-["waste", "Don’t _____ water or electricity, just use what you need! Save the environment and money!"]
+["waste", "Do not _____ water or electricity, just use what you need! Save the environment and money!"]
 ],
 "medium": [
 ["conserve", "Protect (something, especially something of environmental or cultural importance) from harm or destruction."],

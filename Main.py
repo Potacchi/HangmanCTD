@@ -52,7 +52,8 @@ def clear_frame():
 
 def loseGame():
     clear_frame()
-    categorylist = []
+    pressed_buttons = [] # Resets pressed buttons
+    removedWords = []
 
     loseText = tk.Label(
                 root,
@@ -61,6 +62,19 @@ def loseGame():
                 text = "YOU LOSE!\n RETRY?", 
                 font = fontheader)
     
+    back_button = tk.Button(
+        root,
+        fg=colouraccent,  # Text Colour
+        bg=colourmain,  # Button Colour
+        activeforeground=colouractive,
+        activebackground=colourmain,
+        border=1,
+        text='Go Back',
+        font=fontmain,
+        command =  lambda: MainMenu()
+    )
+
+    back_button.place(x = 400, y = 600, anchor = 'center')
     loseText.place(x = 400, y = 400, anchor = 'center')
     
 def nextGame(category, difficulty):
@@ -414,8 +428,11 @@ def LevelSelect():
 
 # Main Menu Screen
 def MainMenu():
-    global pressed_buttons
+    global pressed_buttons, attempts
     clear_frame()
+
+    if attempts != 6:
+        attempts = 6
 
     print(categorylist)
     # Game Title

@@ -70,6 +70,8 @@ def loseGame():
         command =  lambda: MainMenu()
     )
 
+    back_button.focus()
+    back_button.bind('<Return>', lambda event: MainMenu())
     back_button.place(x = 400, y = 600, anchor = 'center')
     loseText.place(x = 400, y = 400, anchor = 'center')
     
@@ -96,9 +98,11 @@ def nextGame(category, difficulty):
         border=1,
         text='Next',
         font=fontmain,
-        command =  lambda: Hangman(category, difficulty)
+        command = lambda: Hangman(category, difficulty)
     )
 
+    next_button.focus()
+    next_button.bind('<Return>', lambda event: Hangman(category, difficulty))
     next_button.place(x = 400, y = 600, anchor = 'center')
 
 def winGame(): 
@@ -123,9 +127,11 @@ def winGame():
         border=1,
         text='Go Back',
         font=fontmain,
-        command =  lambda: MainMenu()
+        command = lambda: MainMenu()
     )
 
+    back_button.focus()
+    back_button.bind('<Return>', lambda event: MainMenu())
     back_button.place(x = 400, y = 600, anchor = 'center')
 
 
@@ -210,6 +216,9 @@ def Hangman(category, difficulty):
             if char == " ":
                 space_index = wordToGuess.index(char)
                 guessedWord[space_index] = " "
+            elif char == "-":
+                hyphen_index = wordToGuess.index(char)
+                guessedWord[hyphen_index] = "-"
         guess = ''
 
     inputField = tk.Entry(root,

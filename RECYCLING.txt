@@ -8,7 +8,7 @@
 ],
 "medium": [
 ["general", "What are non-recyclable items known as? (hint: _______ waste)"],
-["styrofoam", "Some ________ energy sources are wind turbines and solar panels."],
+["styrofoam", "Putting _________ into the recycling bin will contaminate the whole recycling bin"],
 ["beddings", "What bulky items should you not throw into the blue recycling bin?"],
 ["batteries", "You can throw this source of electric power into the e-waste bins."],
 ["reusables", "What items should you not throw into the blue recycling bin? (hint: clothes, bags, stuffed toys)"]

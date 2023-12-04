@@ -5,10 +5,8 @@ import random
 root = tk.Tk()
 
 # Global Variables
-pressed_buttons = []
 categorylist = []
 attempts = 6
-removedWords = []
 
 # UI-Variables
 colourmain = '#FBF7D7'
@@ -52,8 +50,6 @@ def clear_frame():
 
 def loseGame():
     clear_frame()
-    pressed_buttons = [] # Resets pressed buttons
-    removedWords = []
 
     loseText = tk.Label(
                 root,
@@ -79,8 +75,6 @@ def loseGame():
     
 def nextGame(category, difficulty):
     clear_frame()
-    global pressed_buttons
-    pressed_buttons = [] # Resets pressed buttons
     print(len(categorylist))
 
     nextText = tk.Label(
@@ -109,9 +103,6 @@ def nextGame(category, difficulty):
 
 def winGame(): 
     clear_frame()
-    global pressed_buttons
-    pressed_buttons = [] # Resets pressed buttons
-    removedWords = []
 
     winText = tk.Label(
                 root,
@@ -138,17 +129,8 @@ def winGame():
     back_button.place(x = 400, y = 600, anchor = 'center')
 
 
-'''def restartHangman():
-    global pressed_buttons
-    clear_frame()
-
-    difficulty = pressed_buttons[1]
-    category = pressed_buttons[2]
-    Hangman(category, difficulty)
-    pressed_buttons = []  # Reset pressed_buttons'''
-
 def hangmanGameLoop(wordToGuess, guessedWord, inputField, wordGuess, attempts_label, category, difficulty):
-    global attempts, pressed_buttons
+    global attempts
     print("hangmanGameLoop is active")
     
     #the letter that is guessed
@@ -186,14 +168,16 @@ def hangmanGameLoop(wordToGuess, guessedWord, inputField, wordGuess, attempts_la
     # Update attempts label
     attempts_label.config(text=f"Attempts Left: {attempts}")
 
+    #deletes input after entering letter
+    inputField.delete(0, 'end')
+
 
 # Levels
 def Hangman(category, difficulty):
-    global attempts, pressed_buttons, categorylist, removedWords
+    global attempts, categorylist
     clear_frame()
-    print(difficulty)
-    print(removedWords)
-    print(category)
+    # print(difficulty)
+    # print(category)
     
     # Creates a new category list and appends chosen category & difficulty from dictionary to list
     '''if removedWords == []:
@@ -222,8 +206,11 @@ def Hangman(category, difficulty):
         print(categorylist)
         wordToGuess, hintText = chosenList
         guessedWord = ["_"] * len(wordToGuess)
+        for char in wordToGuess:
+            if char == " ":
+                space_index = wordToGuess.index(char)
+                guessedWord[space_index] = " "
         guess = ''
-        removedWords.append(wordToGuess)
 
     inputField = tk.Entry(root,
                               border = 0,
@@ -280,8 +267,6 @@ def Hangman(category, difficulty):
 
     #binding the return/enter button
     inputField.bind('<Return>', lambda event: hangmanGameLoop(wordToGuess, guessedWord, inputField, wordGuess, attempts_label, category, difficulty))
-        
-
 
 
     # UI Layout
@@ -291,12 +276,12 @@ def Hangman(category, difficulty):
     wordGuess.place(x = 400, y = 350, anchor = 'center')
     attempts_label.place(x = 400, y = 450, anchor = 'center')
     enterInput.place(x = 400, y = 650, anchor = 'center')
-    
+
+
 
 # Difficulty Select Screen
 def DifficultySelect(category):
     print(category)
-    global pressed_buttons
     clear_frame()
 
     # Header
@@ -317,8 +302,7 @@ def DifficultySelect(category):
         border = 0,
         text = 'EASY', 
         font = fontmain,
-        command = lambda: on_difficulty_selected(category, "easy")
-        # command = lambda: Hangman(category, "easy") or pressed_buttons.append("easy")
+        command = lambda: Hangman(category, "easy") 
         )
     
     medium = tk.Button(
@@ -330,8 +314,7 @@ def DifficultySelect(category):
         border = 0,
         text = 'MEDIUM', 
         font = fontmain,
-        command = lambda: on_difficulty_selected(category, "medium")
-        # command = lambda: Hangman(category, "medium") or pressed_buttons.append("medium")
+        command = lambda: Hangman(category, "medium")
         )
     
     hard = tk.Button(
@@ -343,8 +326,7 @@ def DifficultySelect(category):
         border = 0,
         text = 'HARD', 
         font = fontmain,
-        command = lambda: on_difficulty_selected(category, "hard")
-        # command = lambda: Hangman(category, "hard")
+        command = lambda: Hangman(category, "hard")
         )
     
     # UI Layout
@@ -352,24 +334,8 @@ def DifficultySelect(category):
     easy.place(x = 400, y = 400, anchor = 'center')
     medium.place(x = 400, y = 500, anchor = 'center')
     hard.place(x = 400, y = 600, anchor = 'center')
-
-def on_difficulty_selected(category, difficulty):
-    global pressed_buttons
-    # selected_category = None
-    # if category == "climate_change":
-    #     selected_category = cc
-    # elif category == "sustainability":
-    #     selected_category = sus
-    # elif category == "recycling":
-    #     selected_category = rec
-
-    # pressed_buttons.extend([difficulty, selected_category])
-    # Hangman(selected_category, difficulty)
-    pressed_buttons.extend([difficulty, category])
-    Hangman(category, difficulty)
     
 def LevelSelect():
-    global pressed_buttons
     clear_frame()
 
     # Header
@@ -391,7 +357,7 @@ def LevelSelect():
         border = 0,
         text = 'CLIMATE CHANGE', 
         font = fontmain,
-        command = lambda: DifficultySelect(cc) or pressed_buttons.append("climate_change")
+        command = lambda: DifficultySelect(cc) 
         )
     
     sustainability = tk.Button(
@@ -403,7 +369,7 @@ def LevelSelect():
         border = 0,
         text = 'SUSTAINABILITY', 
         font = fontmain,
-        command = lambda: DifficultySelect(sus) or pressed_buttons.append("sustainability")
+        command = lambda: DifficultySelect(sus) 
         )
     
     recycling = tk.Button(
@@ -415,7 +381,7 @@ def LevelSelect():
         border = 0,
         text = 'RECYCLING', 
         font = fontmain,
-        command = lambda: DifficultySelect(rec) or pressed_buttons.append("recycling")
+        command = lambda: DifficultySelect(rec) 
         )
     
     # UI Layout
@@ -428,7 +394,7 @@ def LevelSelect():
 
 # Main Menu Screen
 def MainMenu():
-    global pressed_buttons, attempts
+    global attempts
     clear_frame()
 
     if attempts != 6:
@@ -454,7 +420,7 @@ def MainMenu():
         border = 0,
         text = 'PLAY', 
         font = fontmain,
-        command = lambda: LevelSelect() or pressed_buttons.append("play")
+        command = lambda: LevelSelect() 
         )
 
     # Quit Game Button
@@ -490,5 +456,3 @@ def MainMenu():
 if __name__ == "__main__":
     MainMenu() # Upon running application, main menu screen is there
     root.mainloop()
-
-    print("Pressed Buttons:", pressed_buttons)

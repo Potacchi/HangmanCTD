@@ -182,30 +182,12 @@ def hangmanGameLoop(wordToGuess, guessedWord, inputField, wordGuess, attempts_la
 def Hangman(category, difficulty):
     global attempts, categorylist
     clear_frame()
-    # print(difficulty)
-    # print(category)
     
-    # Creates a new category list and appends chosen category & difficulty from dictionary to list
-    '''if removedWords == []:
-        for item in category[difficulty]:
-                categorylist.append(item)'''
-    # word_list = category[difficulty]
-
+    # If there is nothing in categorylist, append all elements from category[difficulty] into categorylist
     if not categorylist:
         categorylist.extend(category[difficulty])
         
-    # From category list, choose a random word & hint
-    '''chosenList = []
-    chosenList = random.choice(categorylist)
-    # chosenList = random.choice(word_list)
-    categorylist.remove(chosenList)
-    print(categorylist)
-    wordToGuess, hintText = chosenList
-    guessedWord = ["_"] * len(wordToGuess)
-    guess = ''
-    removedWords.append(wordToGuess)
-    '''
-
+    # If category list exits, from category list, choose a random word & hint
     if categorylist:
         chosenList = random.choice(categorylist)
         categorylist.remove(chosenList)
@@ -444,17 +426,6 @@ def MainMenu():
         font = fontmain,
         command = root.destroy # Force Quits Application
         )
-
-    '''# Quit button with image placeholder
-    global quit_button
-    quit_button = PhotoImage(file='Images/QuitButton.png')
-    quitgame = tk.Button(
-        root, 
-        image = quit_button,
-        bg = colourmain,
-        border = 0,
-        command = root.destroy
-        )'''
 
     # UI Layout
     main_title.place(x = 400, y = 200, anchor = 'center')

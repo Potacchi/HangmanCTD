@@ -15,7 +15,7 @@
 ],
 "hard": [
 ["flammable", "DO NOT dispose of _________ materials into the blue recycling bins to prevent fire from catching."],
-["bloobin", "What is the name of Singapore’s recycling mascot?"],
+["bloobin", "What is the name of the Singaporean recycling mascot?"],
 ["liquids", "No food and _______ should be thrown into the recycling bins."],
 ["tissue paper", "Used ______ _____ should not be thrown into the recycling bins."],
 ["food-stained", "You should not throw ____-_______ items into the recycling bin."]
